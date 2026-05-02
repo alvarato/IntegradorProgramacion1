@@ -1,0 +1,71 @@
+id,nombre,poblacion,superficie,continente
+1,Argentina,45195774,2780400,América
+2,Brasil,212559417,8515767,América
+3,Canadá,38005238,9984670,América
+4,Chile,19116201,756102,América
+5,Colombia,50882891,1141748,América
+6,México,126014024,1964375,América
+7,Perú,33035304,1285216,América
+8,Estados Unidos,331002651,9833517,América
+9,Uruguay,3473730,176215,América
+10,Venezuela,28435940,916445,América
+11,Bolivia,11673021,1098581,América
+12,Paraguay,7132538,406752,América
+13,Ecuador,17643054,283561,América
+14,Costa Rica,5094118,51100,América
+15,Cuba,11326616,109884,América
+16,España,47351422,505992,Europa
+17,Francia,67391582,643801,Europa
+18,Alemania,83240525,357022,Europa
+19,Italia,59554023,301340,Europa
+20,Reino Unido,67215293,243610,Europa
+21,Portugal,10305564,92212,Europa
+22,Grecia,10715549,131957,Europa
+23,Países Bajos,17441139,41543,Europa
+24,Bélgica,11589623,30528,Europa
+25,Suiza,8636896,41285,Europa
+26,Austria,8917205,83871,Europa
+27,Noruega,5379475,323802,Europa
+28,Suecia,10353442,450295,Europa
+29,Polonia,37950802,312685,Europa
+30,Irlanda,4994724,70273,Europa
+31,China,1402112000,9596961,Asia
+32,India,1380004385,3287263,Asia
+33,Japón,125836021,377975,Asia
+34,Corea del Sur,51780579,100210,Asia
+35,Vietnam,97338579,331210,Asia
+36,Tailandia,69799978,513120,Asia
+37,Indonesia,273523615,1904569,Asia
+38,Filipinas,109581078,300000,Asia
+39,Arabia Saudita,34813871,2149690,Asia
+40,Irán,83992949,1648195,Asia
+41,Turquía,84339067,783562,Asia
+42,Israel,9216900,22072,Asia
+43,Pakistán,220892340,796095,Asia
+44,Egipto,102334404,1001450,África/Asia
+45,Singapur,5685807,728,Asia
+46,Nigeria,206139589,923768,África
+47,Etiopía,114963588,1104300,África
+48,Sudáfrica,59308690,1221037,África
+49,Kenia,53771296,580367,África
+50,Marruecos,36910560,446550,África
+51,Argelia,43851044,2381741,África
+52,Ghana,31072940,238533,África
+53,Angola,32866272,1246700,África
+54,Tanzania,59734218,945087,África
+55,Uganda,45741007,241038,África
+56,Costa de Marfil,26378274,322463,África
+57,Camerún,26545863,475440,África
+58,Senegal,16743927,196722,África
+59,Túnez,11818619,163610,África
+60,Madagascar,27691018,587041,África
+61,Australia,25687041,7692024,Oceanía
+62,Nueva Zelanda,5084300,268021,Oceanía
+63,Papúa Nueva Guinea,8947024,462840,Oceanía
+64,Fiyi,896445,18274,Oceanía
+65,Samoa,198414,2831,Oceanía
+66,Islas Salomón,686884,28896,Oceanía
+67,Vanuatu,307145,12189,Oceanía
+68,Tonga,105695,747,Oceanía
+69,Kiribati,119449,811,Oceanía
+70,Palaos,18094,459,Oceanía
