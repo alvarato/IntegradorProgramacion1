@@ -48,3 +48,7 @@ def aplicar_filtros(filtros):
                 datos = filtrar_por_poblacion_menor_igual_que(datos, valor)
 
     return datos
+
+
+def añadir_nuevo_filtro(lista, nombre, valor):
+    lista.append({nombre: valor})

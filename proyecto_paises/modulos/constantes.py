@@ -5,3 +5,5 @@ OPCIONES_BASE_FILTROS = [
     {"nombre": "menor", "texto": "Población menor a..."},
     {"nombre": "continente", "texto": "Continente"},
 ]
+
+CONTINENTES = ["América", "Europa", "Asia", "África", "Oceanía"]

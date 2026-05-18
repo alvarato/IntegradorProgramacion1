@@ -1,5 +1,6 @@
 import funciones
 import constantes
+import control_entradas
 
 
 def imprimir(datos):
@@ -10,24 +11,66 @@ def imprimir(datos):
         print(f"{pais} ({continente}): {poblacion} habitantes.")
 
 
+def imprimir_lineas():
+    print("---------------------------------")
+
+
+def imprimir_espacio():
+    print("\n")
+
+
+def imprimir_opciones(lista):
+    if not lista:
+        return "La lista está vacía"
+    # Miramos el primer elemento
+    primer_elemento = lista[0]
+    imprimir_lineas()
+    if isinstance(primer_elemento, dict):
+        for i, dato in enumerate(lista):
+            print(f"{i+1}. {dato['texto']}")
+    elif isinstance(primer_elemento, str):
+        for i, dato in enumerate(lista):
+            print(f"{i+1}. {dato}")
+    imprimir_lineas()
+    imprimir_espacio()
+
+
 def buscar_con_filtros():
-    opciones_restantes = constantes.OPCIONES_BASE_FILTROS
+    opciones = constantes.OPCIONES_BASE_FILTROS
     opciones_elegidas = []
+    nueva_opcion = {"nombre": "enviar", "texto": "Realiar busqueda"}
+    opciones.insert(0, nueva_opcion)
+
     while True:
+        imprimir_opciones(opciones)
 
-        for i, filtro in enumerate(opciones_restantes):
-            print(f"{i+1}. {filtro['texto']}")
+        opcion = control_entradas.pedir_entero_en_rango(
+            "Ingrese la opcion", 1, len(opciones)
+        )
 
-        opcion = input("Ingrese la opcion: ")
-        if opcion == "0":
+        if opcion == 1:
             break
-        elif opcion.isdigit() and int(opcion) <= len(opciones_restantes):
-            index = int(opcion) - 1
-            valor = input(f"Ingrese el filtro {opciones_restantes[index]["nombre"]} :")
-            opciones_elegidas.append({opciones_restantes[index]["nombre"]})
-            opciones_restantes.pop(index)
-
+            ## si elije contienente mostramos la opciones de este
+        if opcion == 6:
+            imprimir_opciones(constantes.CONTINENTES)
+            sub_opcion = control_entradas.pedir_entero_en_rango(
+                "Ingrese la opcion", 1, len(constantes.CONTINENTES)
+            )
+            funciones.añadir_nuevo_filtro(
+                opciones_elegidas,
+                constantes.OPCIONES_BASE_FILTROS[opcion - 1]["nombre"],
+                constantes.CONTINENTES[sub_opcion - 1],
+            )
+        else:
+            valor = control_entradas.pedir_texto_no_vacio("Ingrese el texto")
+            print(opcion - 1)
+            funciones.añadir_nuevo_filtro(
+                opciones_elegidas,
+                opciones[opcion - 1]["nombre"],
+                valor,
+            )
     print(opciones_elegidas)
+    return opciones_elegidas
 
 
 filtros = [
@@ -37,6 +80,6 @@ filtros = [
     {"continente": "América"},
     # {"continente": "Europa"},
 ]
-
-buscar_con_filtros()
+imprimir(funciones.aplicar_filtros(buscar_con_filtros()))
+# buscar_con_filtros()
 # imprimir(funciones.aplicar_filtros(filtros))
