@@ -1,39 +1,79 @@
-# control_entradas.py
+import constantes
 
 
-def pedir_entero_en_rango(mensaje, minimo=None, maximo=None):
-    """
-    Pide un número entero por consola y valida que esté dentro de un rango.
-    Si el usuario se equivoca, muestra un error y vuelve a preguntar.
-    """
+def pedir_entero(mensaje):
     while True:
-        entrada = input(f"{mensaje}: ")
-
         try:
-            numero = int(entrada)
-            if (minimo is not None and numero < minimo) or (
-                maximo is not None and numero > maximo
-            ):
-                print(
-                    f"❌ Error: El número tiene que estar entre {minimo} y {maximo}.\n"
-                )
+            entrada = input(f"{mensaje}: ").strip()
+
+            if not entrada:
+                raise ValueError("El campo no puede estar vacío.")
+
+            try:
+                return int(entrada)
+            except ValueError:
+                raise ValueError("Debes introducir un número entero válido.")
+
+        except ValueError as error:
+            print(f"{constantes.TEXTO_ERROR_GENERICO}{error}\n")
+
+
+def pedir_entero_en_rango(mensaje, minimo, maximo):
+    while True:
+        try:
+            numero = pedir_entero(mensaje)
+
+            if numero is None:
                 continue
+            if numero < minimo or numero > maximo:
+                raise ValueError(
+                    f"El número debe ser mayor o igual a {minimo} y menor o igual a {maximo}."
+                )
+
             return numero
-        except ValueError:
-            print("❌ Error: Debes introducir un número entero válido.\n")
+
+        except ValueError as error:
+            print(f"{constantes.TEXTO_ERROR_GENERICO}{error}\n")
 
 
-# control_entradas.py
+def pedir_entero_positivo(mensaje):
+    while True:
+        try:
+            numero = pedir_entero(mensaje)
+
+            if numero is None:
+                continue
+
+            if numero <= 0:
+                raise ValueError("El número debe ser mayor a 0.")
+
+            return numero
+
+        except ValueError as error:
+            print(f"{constantes.TEXTO_ERROR_GENERICO}{error}\n")
 
 
 def pedir_texto_no_vacio(mensaje):
     while True:
-        entrada = input(f"{mensaje}: ")
+        try:
+            entrada = input(f"{mensaje}: ").strip()
 
-        texto_limpio = entrada.strip()
+            if not entrada:
+                raise ValueError(
+                    "El campo no puede estar vacío. Por favor, escribe algo."
+                )
 
-        if not texto_limpio:
-            print("❌ Error: El campo no puede estar vacío. Por favor, escribe algo.\n")
-            continue
+            return entrada
 
-        return texto_limpio
+        except ValueError as error:
+            print(f"{constantes.TEXTO_ERROR_GENERICO}{error}\n")
+
+
+def pedir_texto(mensaje):
+    while True:
+        try:
+            entrada = input(f"{mensaje}: ").strip()
+            return entrada
+
+        except ValueError as error:
+            print(f"{constantes.TEXTO_ERROR_GENERICO}{error}\n")
