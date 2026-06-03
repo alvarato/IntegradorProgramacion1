@@ -33,7 +33,6 @@ def _manejar_filtro_continente(
 def _manejar_filtros_generales(
     opcion_seleccionada, opciones, indice_opcion, opciones_elegidas
 ):
-    """Maneja los filtros comunes de texto/número y los remueve del menú."""
     valor = control_entradas.pedir_texto_no_vacio("Ingrese el valor")
 
     opciones_elegidas.append({"nombre": opcion_seleccionada["nombre"], "valor": valor})
@@ -41,7 +40,7 @@ def _manejar_filtros_generales(
     opciones.pop(indice_opcion)
 
 
-def buscar_con_filtros(datos, opciones_disponibles, continentes_disponibles):
+def _buscar_con_filtros(datos, opciones_disponibles, continentes_disponibles):
     opciones_elegidas = []
     continentes_elegidos = []
 
@@ -83,8 +82,28 @@ def buscar_con_filtros(datos, opciones_disponibles, continentes_disponibles):
     return funciones.aplicar_filtros(filtro, datos)
 
 
-def obtener_datos_csv():
-    return funciones.obtener_datos_csv()
+def manejar_busqueda_con_filtros(
+    datos, estadisticas, opciones_disponibles, continentes_disponibles
+):
+    hash_datos = ""
+
+    # Si tenemos estadisticas generadas y modifican los datos, limpiamos las estadisticas
+    if len(estadisticas) != 0:
+        hash_datos = funciones.calcular_hash_datos(datos)
+
+    datos = _buscar_con_filtros(datos, opciones_disponibles, continentes_disponibles)
+
+    if len(estadisticas) != 0 and len(hash_datos) != 0:
+        if funciones.calcular_hash_datos(datos) != hash_datos:
+            estadisticas = ""
+            print(
+                f"{constantes.TEXTO_ERROR_GENERICO}Los datos han cambiado debido a los nuevos filtros.\n Las estadísticas anteriores ya no coinciden y han sido borradas."
+            )
+    return datos, estadisticas
+
+
+def obtener_lista_de_datos():
+    return funciones.obtener_lista_de_datos()
 
 
 ###CRUD

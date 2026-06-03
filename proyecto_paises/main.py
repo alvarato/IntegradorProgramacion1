@@ -42,7 +42,7 @@ def mostrar_menu_opciones():
     print("2. Buscar País")
     print("3. Editar Información de País")
     print("4. Eliminar País")
-    print("5. Buscar con Filtros Avanzados")
+    print("5. Filtros Avanzados y Reportes")
     print("6. Salir")
     print("=" * 40)
 
@@ -60,7 +60,7 @@ def mostrar_menu_filtros():
     print("1. Imprimir Paises")
     print("2. Utilizar Filtros")
     print("3. Ordenar Listado por...")
-    print("4. Generar Estadisticas...")
+    print("4. Generar Estadisticas")
     print("5. Imprimir Estadisticas")
     print("6. Generar TXT con resultados")
     print("7. Salir")
@@ -148,7 +148,7 @@ def menu_ordenamiento(datos):
 
 
 def menu_filtros():
-    datos = interfaz.obtener_datos_csv()
+    datos = interfaz.obtener_lista_de_datos()
     estadisticas = ""
     # filtros
     opciones_disponibles = constantes.OPCIONES_BASE_FILTROS.copy()
@@ -157,7 +157,7 @@ def menu_filtros():
     opciones_disponibles.insert(0, nueva_opcion)
     # filtros
 
-    print("El listado de todos los paises esta listo")
+    print(f"{constantes.TEXTO_EXITO_GENERICO}El listado de todos los paises esta listo")
     while True:
         esperar_tecla()
         mostrar_menu_filtros()
@@ -170,19 +170,9 @@ def menu_filtros():
             imprimir.paises(datos)
 
         elif opcion == 2:
-            hash_datos = ""
-
-            # Si tenemos estadisticas generadas y modifican los datos, limpiamos las estadisticas
-            if len(estadisticas) != 0:
-                hash_datos = interfaz.calcular_hash_datos(datos)
-
-            datos = interfaz.buscar_con_filtros(
-                datos, opciones_disponibles, continentes_disponibles
+            datos, estadisticas = interfaz.manejar_busqueda_con_filtros(
+                datos, estadisticas, opciones_disponibles, continentes_disponibles
             )
-
-            if len(estadisticas) != 0 and len(hash_datos) != 0:
-                if interfaz.calcular_hash_datos(datos) != hash_datos:
-                    estadisticas = ""
 
         elif opcion == 3:
             menu_ordenamiento(datos)
@@ -230,7 +220,7 @@ def ejecutor_sistema() -> None:
                     "¡Muchas gracias por utilizar el Sistema de Control de Inventario! Saliendo..."
                 )
 
-        except Exception:
+        except ValueError:  # Exception:
             print("Error Inesperado: Cargando el Menú principal")
 
 

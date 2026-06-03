@@ -7,7 +7,6 @@ from . import constantes
 from . import imprimir
 
 # Definimos las columnas exactamente como deberían estar en el CSV
-columnas = ["nombre", "poblacion", "superficie", "continente"]
 COLUMNAS_GLOBALES = ["nombre", "poblacion", "superficie", "continente"]
 
 # Construimos la ruta: un nivel atrás y dentro de 'data'
@@ -29,7 +28,7 @@ def get_data_dict():
         return {}
 
 
-def get_data_list():
+def obtener_lista_de_datos():
     try:
         with open(RUTA, mode="r", encoding="utf-8") as fichero:
             lector = csv.DictReader(fichero)
@@ -56,7 +55,7 @@ def añadir_nuevo_pais(nombre, poblacion, superficie, continente):
         # Abrimos en modo "a" (append) para añadir al final
         # newline="" evita que se dejen líneas en blanco innecesarias en algunos OS
         with open(RUTA, mode="a", encoding="utf-8", newline="") as fichero:
-            escritor = csv.DictWriter(fichero, fieldnames=columnas)
+            escritor = csv.DictWriter(fichero, fieldnames=COLUMNAS_GLOBALES)
 
             escritor.writerow(nuevo_pais)
 
@@ -74,7 +73,7 @@ def guardar_lista_actualizada(paises_actualizados):
     try:
         # Abrimos en modo "w" para sobreescribir el archivo completo
         with open(RUTA, mode="w", encoding="utf-8", newline="") as fichero:
-            escritor = csv.DictWriter(fichero, fieldnames=columnas)
+            escritor = csv.DictWriter(fichero, fieldnames=COLUMNAS_GLOBALES)
 
             # Volvemos a poner la cabecera
             escritor.writeheader()
@@ -94,7 +93,7 @@ def guardar_lista_actualizada(paises_actualizados):
 def eliminar_pais_por_nombre(nombre_eliminar):
     try:
         # 1. Leemos la lista completa actual
-        paises = get_data_list()
+        paises = obtener_lista_de_datos()
 
         # 2. Filtramos dejando fuera el país que queremos borrar
         paises_filtrados = [
@@ -109,7 +108,7 @@ def eliminar_pais_por_nombre(nombre_eliminar):
 
         # 4. Reescribimos el CSV con la lista reducida
         with open(RUTA, mode="w", encoding="utf-8", newline="") as fichero:
-            escritor = csv.DictWriter(fichero, fieldnames=columnas)
+            escritor = csv.DictWriter(fichero, fieldnames=COLUMNAS_GLOBALES)
             escritor.writeheader()
             escritor.writerows(paises_filtrados)
         print(

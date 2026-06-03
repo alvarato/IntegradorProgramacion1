@@ -15,8 +15,8 @@ def calcular_hash_datos(datos):
     return hashlib.md5(datos_string.encode("utf-8")).hexdigest()
 
 
-def obtener_todos():
-    return persistencia.get_data_list()
+def obtener_lista_de_datos():
+    return persistencia.obtener_lista_de_datos()
 
 
 def _filtrar_por_contiene_nombre(datos, texto):
@@ -56,25 +56,23 @@ def obtener_datos_csv():
 
 
 def aplicar_filtros(filtros, datos):
-    print(filtros)
-
     if len(filtros["continentes"]) != 0:
         datos = _filtrar_por_contientes(datos, filtros["continentes"])
 
     for filtro in filtros["generales"]:
-        nombre_filtro, valor = list(filtro.items())[0]
 
-        match nombre_filtro:
+        match filtro["nombre"]:
+
             case "contiene_nombre":
-                datos = _filtrar_por_contiene_nombre(datos, valor)
+                datos = _filtrar_por_contiene_nombre(datos, filtro["valor"])
             case "poblacion_mayor":
-                datos = _filtrar_por_poblacion_mayor_igual_que(datos, valor)
+                datos = _filtrar_por_poblacion_mayor_igual_que(datos, filtro["valor"])
             case "poblacion_menor":
-                datos = _filtrar_por_poblacion_menor_igual_que(datos, valor)
+                datos = _filtrar_por_poblacion_menor_igual_que(datos, filtro["valor"])
             case "superficie_mayor":
-                datos = _filtrar_por_superficie_mayor_igual_que(datos, valor)
+                datos = _filtrar_por_superficie_mayor_igual_que(datos, filtro["valor"])
             case "superficie_menor":
-                datos = _filtrar_por_superficie_menor_igual_que(datos, valor)
+                datos = _filtrar_por_superficie_menor_igual_que(datos, filtro["valor"])
 
     return datos
 
