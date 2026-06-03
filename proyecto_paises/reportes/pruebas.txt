@@ -1,0 +1,30 @@
+
+=======================================================
+📊 INFORMACIÓN BÁSICA DEL INFORME
+=======================================================
+🥇 Pais con mas poblacion:   Estados Unidos (331,002,651 hab.)
+🔻 Pais con menos poblacion: Pepe Jons (200 hab.)
+👥 Promedio de poblacion:    46,391,827.81 hab.
+-------------------------------------------------------
+🌍 Pais con mayor tamano:    Estados Unidos (9,833,517 km²)
+🔎 Pais con menor tamano:    Pepe Jons (3,000 km²)
+📐 Promedio de superficie:   1,134,826.50 km²
+=======================================================
+
+nombre,poblacion,superficie,continente
+Argentina,45195774,2780400,América
+Chile,19116201,756102,América
+Perú,32971854,1285216,América
+Estados Unidos,331002651,9833517,América
+Ecuador,17643054,283561,América
+Venezuela,28435940,912050,América
+Guatemala,14901286,108889,América
+España,47351595,505990,Europa
+Alemania,83166711,357022,Europa
+Reino Unido,67886011,243610,Europa
+Noruega,5378857,385207,Europa
+Suecia,10353442,450295,Europa
+Grecia,10715549,131957,Europa
+Países Bajos,17441139,41543,Europa
+República Checa,10708981,78865,Europa
+Pepe Jons,200,3000,América

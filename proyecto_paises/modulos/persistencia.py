@@ -60,7 +60,7 @@ def añadir_nuevo_pais(nombre, poblacion, superficie, continente):
             escritor.writerow(nuevo_pais)
 
             print(f"{constantes.TEXTO_EXITO_GENERICO}Datos guardados correctamente.")
-            imprimir.pais_creado(nombre, poblacion, superficie, continente)
+            imprimir.pais(nombre, poblacion, superficie, continente)
 
     except FileNotFoundError:
         print(

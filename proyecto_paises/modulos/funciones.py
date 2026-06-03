@@ -36,23 +36,23 @@ def _filtrar_por_contientes(datos, contientes):
 
 
 def _filtrar_por_superficie_mayor_igual_que(datos, superficie):
-    return [p for p in datos if superficie <= int(p["superficie"])]
+    return [p for p in datos if int(superficie) <= int(p["superficie"])]
 
 
 def _filtrar_por_superficie_menor_igual_que(datos, superficie):
-    return [p for p in datos if superficie >= int(p["superficie"])]
+    return [p for p in datos if int(superficie) >= int(p["superficie"])]
 
 
 def _filtrar_por_poblacion_mayor_igual_que(datos, poblacion):
-    return [p for p in datos if poblacion <= int(p["poblacion"])]
+    return [p for p in datos if int(poblacion) <= int(p["poblacion"])]
 
 
 def _filtrar_por_poblacion_menor_igual_que(datos, poblacion):
-    return [p for p in datos if poblacion >= int(p["poblacion"])]
+    return [p for p in datos if int(poblacion) >= int(p["poblacion"])]
 
 
 def obtener_datos_csv():
-    return persistencia.get_data_list()
+    return persistencia.obtener_lista_de_datos()
 
 
 def aplicar_filtros(filtros, datos):
@@ -84,7 +84,7 @@ def formatear_nombre_compuesto(texto):
 ###CRUD
 # READ
 def buscar_pais_por_nombre(nombre):
-    paises = persistencia.get_data_list()
+    paises = persistencia.obtener_lista_de_datos()
 
     # Recorremos la lista buscando coincidencia exacta ignorando mayúsculas/minúsculas
     for pais in paises:
@@ -108,7 +108,7 @@ def añadir_nuevo_pais(nombre, poblacion, superficie, continente):
 
 # UPDATE
 def modificar_pais_en_lista(nombre_buscar, nuevos_datos):
-    paises = persistencia.get_data_list()
+    paises = persistencia.obtener_lista_de_datos()
 
     for pais in paises:
         if pais["nombre"].lower() == nombre_buscar.lower():

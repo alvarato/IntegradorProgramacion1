@@ -60,8 +60,8 @@ def mostrar_menu_filtros():
     print("1. Imprimir Paises")
     print("2. Utilizar Filtros")
     print("3. Ordenar Listado por...")
-    print("4. Generar Estadisticas")
-    print("5. Imprimir Estadisticas")
+    print("4. Generar Estadísticas")
+    print("5. Imprimir Estadísticas")
     print("6. Generar TXT con resultados")
     print("7. Salir")
     print("=" * 40)
@@ -184,7 +184,7 @@ def menu_filtros():
             if len(estadisticas) != 0:
                 print(estadisticas)
             else:
-                print("No hay Estadisticas generadas")
+                print("No hay Estadísticas generadas")
 
         elif opcion == 6:
             interfaz.guardar_datos_a_txt(datos, estadisticas)
@@ -197,12 +197,12 @@ def menu_filtros():
 def ejecutor_sistema() -> None:
 
     opcion = 0
-    while opcion != 7:
+    while opcion != 6:
         esperar_tecla()
         mostrar_menu_opciones()
         try:
             opcion = control_entradas.pedir_entero_en_rango(
-                "Seleccione una opción (1-7): ", 1, 7
+                "Seleccione una opción (1-6): ", 1, 6
             )
 
             if opcion == 1:
@@ -220,7 +220,7 @@ def ejecutor_sistema() -> None:
                     "¡Muchas gracias por utilizar el Sistema de Control de Inventario! Saliendo..."
                 )
 
-        except ValueError:  # Exception:
+        except Exception:
             print("Error Inesperado: Cargando el Menú principal")
 
 
