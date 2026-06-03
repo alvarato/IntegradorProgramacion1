@@ -1,0 +1,116 @@
+
+=======================================================
+📊 INFORMACIÓN BÁSICA DEL INFORME
+=======================================================
+🥇 Pais con mas poblacion:   China (1,402,112,000 hab.)
+🔻 Pais con menos poblacion: Marta (20 hab.)
+👥 Promedio de poblacion:    68,660,815.37 hab.
+-------------------------------------------------------
+🌍 Pais con mayor tamano:    Rusia (17,098,242 km²)
+🔎 Pais con menor tamano:    Mónaco (2 km²)
+📐 Promedio de superficie:   1,126,144.48 km²
+=======================================================
+
+nombre,poblacion,superficie,continente
+Afganistán,38928346,652230,Asia
+Alemania,83166711,357022,Europa
+Angola,32866272,1246700,África
+Arabia Saudita,34813871,2149690,Asia
+Argelia,43851044,2381741,África
+Argentina,45195774,2780400,América
+Australia,25499884,7692024,Oceanía
+Austria,8901064,83871,Europa
+Bahamas,393244,13878,América
+Bangladés,164689383,147570,Asia
+Bolivia,11673021,1098581,América
+Botsuana,2351627,581730,África
+Brasil,212559417,8515767,América
+Bélgica,11589623,30528,Europa
+Camerún,26545863,475440,África
+Canadá,37742154,9984670,América
+Catar,2881053,11586,Asia
+Chile,19116201,756102,América
+China,1402112000,9596961,Asia
+Colombia,50882891,1141748,América
+Corea del Sur,51269185,100210,Asia
+Costa de Marfil,26378274,322463,África
+Costa Rica,5094118,51100,América
+Cuba,11326616,110860,América
+Dinamarca,5831404,43094,Europa
+Ecuador,17643054,283561,América
+Egipto,102334404,1002450,África
+Emiratos Árabes,9890402,83600,Asia
+España,47351595,505990,Europa
+Estados Unidos,331002651,9833517,América
+Etiopía,114963588,1104300,África
+Filipinas,109581078,300000,Asia
+Finlandia,5540720,338424,Europa
+Fiyi,896445,18274,Oceanía
+Francia,67081000,551695,Europa
+Ghana,31072940,238533,África
+Grecia,10715549,131957,Europa
+Guatemala,14901286,108889,América
+Honduras,9904607,112492,América
+Hungría,9769526,93028,Europa
+India,1380004385,3287263,Asia
+Indonesia,273523615,1904569,Asia
+Irak,40222493,438317,Asia
+Irlanda,4937786,70273,Europa
+Irán,83992949,1648195,Asia
+Islandia,366425,103000,Europa
+Islas Salomón,686884,28896,Oceanía
+Israel,8655535,22072,Asia
+Italia,60244639,301340,Europa
+Jamaica,2961167,10991,América
+Japón,126476461,377975,Asia
+Kazajistán,18776707,2724900,Asia
+Kenia,53771296,580367,África
+Kiribati,119449,811,Oceanía
+Libia,6871292,1759540,África
+Madagascar,27691018,587041,África
+Malasia,32365999,329847,Asia
+Marruecos,36910560,446550,África
+Marta,20,200,Europa
+Mongolia,3278290,1564116,Asia
+Mozambique,31255435,799380,África
+México,128932753,1964375,América
+Mónaco,39242,2,Europa
+Namibia,2540905,824292,África
+Nepal,29136808,147181,Asia
+Nigeria,206139589,923768,África
+Noruega,5378857,385207,Europa
+Nueva Zelanda,5084300,268021,Oceanía
+Pakistán,220892340,796095,Asia
+Palaos,18094,459,Oceanía
+Panamá,4314767,75420,América
+Papúa Nueva Guinea,8947024,462840,Oceanía
+Paraguay,7132538,406752,América
+Países Bajos,17441139,41543,Europa
+Pepe Jons,200,3000,América
+Perú,32971854,1285216,América
+Polonia,37950802,312685,Europa
+Portugal,10295909,92212,Europa
+Portugal,10196709,92212,Europa
+Reino Unido,67886011,243610,Europa
+República Checa,10708981,78865,Europa
+Rumania,19237691,238391,Europa
+Rusia,145934462,17098242,Europa
+Samoa,198414,2831,Oceanía
+Senegal,16743927,196722,África
+Singapur,5850342,728,Asia
+Sri Lanka,21413249,65610,Asia
+Sudáfrica,59308690,1221037,África
+Suecia,10353442,450295,Europa
+Suiza,8636896,41285,Europa
+Tailandia,69799978,513120,Asia
+Tanzania,59734218,945087,África
+Tonga,105695,747,Oceanía
+Turquía,84339067,783356,Asia
+Túnez,11818619,163610,África
+Ucrania,43733762,603500,Europa
+Uganda,45741007,241038,África
+Uruguay,3473730,176215,América
+Uzbekistán,33469203,447400,Asia
+Vanuatu,307145,12189,Oceanía
+Venezuela,28435940,912050,América
+Vietnam,97338579,331210,Asia

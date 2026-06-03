@@ -1,7 +1,8 @@
-import funciones
+from . import funciones
 
 
 def paises(datos):
+    print(datos)
     for fila in datos:
         pais = fila["nombre"]
         poblacion = fila["poblacion"]

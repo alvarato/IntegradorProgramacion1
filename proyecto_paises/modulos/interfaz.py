@@ -1,35 +1,12 @@
-import funciones
-import constantes
-import control_entradas
-import imprimir
-
-
-def pedir_opcion_booleana(mensaje):
-    while True:
-        try:
-            imprimir.lineas()
-            print(mensaje)
-            print("1. Sí / Confirmar")
-            print("2. No / Cancelar")
-            imprimir.lineas()
-
-            # Usamos input directamente para evaluar las opciones fijas 1 y 2
-            entrada = input("Seleccione una opción (1-2): ").strip()
-
-            if entrada == "1":
-                return True
-            elif entrada == "2":
-                return False
-            else:
-                raise ValueError("Debe elegir estrictamente la opción 1 o la opción 2.")
-
-        except ValueError as error:
-            print(f"{constantes.TEXTO_ERROR_GENERICO}{error}\n")
+from . import funciones
+from . import constantes
+from . import control_entradas
+from . import imprimir
 
 
 def _manejar_filtro_continente(
     continentes_disponibles,
-    opciones,
+    opciones_disponibles,
     indice_opcion,
     continentes_elegidos,
 ):
@@ -50,7 +27,7 @@ def _manejar_filtro_continente(
 
     # Si ya no quedan continentes, removemos la opción del menú principal
     if not continentes_disponibles:
-        opciones.pop(indice_opcion)
+        opciones_disponibles.pop(indice_opcion)
 
 
 def _manejar_filtros_generales(
@@ -59,58 +36,59 @@ def _manejar_filtros_generales(
     """Maneja los filtros comunes de texto/número y los remueve del menú."""
     valor = control_entradas.pedir_texto_no_vacio("Ingrese el valor")
 
-    funciones.añadir_nuevo_filtro(
-        opciones_elegidas,
-        opcion_seleccionada["nombre"],
-        valor,
-    )
+    opciones_elegidas.append({"nombre": opcion_seleccionada["nombre"], "valor": valor})
     # Eliminamos la opción para que no vuelva a aparecer
     opciones.pop(indice_opcion)
 
 
-def buscar_con_filtros():
-    """Función principal que controla el bucle del menú de búsqueda."""
-    opciones = constantes.OPCIONES_BASE_FILTROS.copy()
-    continentes_disponibles = constantes.CONTINENTES.copy()
+def buscar_con_filtros(datos, opciones_disponibles, continentes_disponibles):
     opciones_elegidas = []
     continentes_elegidos = []
 
-    nueva_opcion = {"nombre": "enviar", "texto": "Realizar búsqueda"}
-    opciones.insert(0, nueva_opcion)
-
     while True:
-        imprimir.pciones(opciones)
+        imprimir.opciones(opciones_disponibles)
 
         opcion = control_entradas.pedir_entero_en_rango(
-            "Ingrese la opcion", 1, len(opciones)
+            "Ingrese la opcion", 1, len(opciones_disponibles)
         )
 
         # 1. Si elige "Realizar búsqueda"
         if opcion == 1:
+            # Si la primera vez que ejecuto los filtros ya eligio un Continentes
+            # No tiene sentido que pueda filtrar por el resto de continentes si ya se usaron
+            if len(continentes_elegidos) > 0:
+                opciones_disponibles.pop(1)
             break
 
         # Guardamos el índice real de la lista (opcion - 1) y la opción seleccionada
         indice_actual = opcion - 1
-        opcion_seleccionada = opciones[indice_actual]
+        opcion_seleccionada = opciones_disponibles[indice_actual]
 
         # 2. Derivamos a la subfunción correspondiente
         if opcion_seleccionada["nombre"] == "continente":
             _manejar_filtro_continente(
-                opcion_seleccionada,
                 continentes_disponibles,
-                opciones,
+                opciones_disponibles,
                 indice_actual,
                 continentes_elegidos,
             )
         else:
             _manejar_filtros_generales(
-                opcion_seleccionada, opciones, indice_actual, opciones_elegidas
+                opcion_seleccionada,
+                opciones_disponibles,
+                indice_actual,
+                opciones_elegidas,
             )
     filtro = {"generales": opciones_elegidas, "continentes": continentes_elegidos}
-    print(filtro)
-    return filtro
+    return funciones.aplicar_filtros(filtro, datos)
 
 
+def obtener_datos_csv():
+    return funciones.obtener_datos_csv()
+
+
+###CRUD
+# CREATE
 def solicitar_datos_nuevo_pais():
     imprimir.espacio()
     imprimir.lineas()
@@ -137,6 +115,44 @@ def solicitar_datos_nuevo_pais():
     imprimir.espacio()
 
 
+# READ
+def solicitar_busqueda_pais():
+    imprimir.espacio()
+    imprimir.lineas()
+    print("🔍 BUSCAR PAÍS POR NOMBRE")
+    imprimir.lineas()
+
+    # 1. Pedimos el nombre asegurando que no vaya vacío
+    nombre_buscar = control_entradas.pedir_texto_no_vacio(
+        "Ingrese el nombre del país que busca"
+    )
+
+    # 2. Llamamos a tu función de búsqueda en la capa de funciones
+    pais_encontrado = funciones.buscar_pais_por_nombre(nombre_buscar)
+
+    imprimir.lineas()
+
+    if pais_encontrado is not None:
+        print(f"{constantes.TEXTO_EXITO_GENERICO}¡País encontrado con éxito!")
+        imprimir.lineas()
+
+        # Mostramos la ficha del país
+        imprimir.pais(
+            nombre=pais_encontrado["nombre"],
+            continente=pais_encontrado["continente"],
+            poblacion=pais_encontrado["poblacion"],
+            superficie=pais_encontrado["superficie"],
+        )
+    else:
+        print(
+            f"{constantes.TEXTO_ERROR_GENERICO}El país '{nombre_buscar}' no se encuentra registrado."
+        )
+
+    imprimir.lineas()
+    imprimir.espacio()
+
+
+# UPDATE
 def solicitar_edicion_pais():
     imprimir.espacio()
     imprimir.lineas()
@@ -175,7 +191,7 @@ def solicitar_edicion_pais():
     imprimir.espacio()
     imprimir.mostrar_comparacion_edicion(pais, pais_editado)
 
-    if pedir_opcion_booleana("Confirmar Cambios"):
+    if control_entradas.pedir_opcion_booleana("Confirmar Cambios"):
         funciones.modificar_pais_en_lista(pais["nombre"], pais_editado)
     else:
         print(f"Cambios no aplicados...")
@@ -184,42 +200,7 @@ def solicitar_edicion_pais():
     imprimir.espacio()
 
 
-def solicitar_busqueda_pais():
-    imprimir.espacio()
-    imprimir.lineas()
-    print("🔍 BUSCAR PAÍS POR NOMBRE")
-    imprimir.lineas()
-
-    # 1. Pedimos el nombre asegurando que no vaya vacío
-    nombre_buscar = control_entradas.pedir_texto_no_vacio(
-        "Ingrese el nombre del país que busca"
-    )
-
-    # 2. Llamamos a tu función de búsqueda en la capa de funciones
-    pais_encontrado = funciones.buscar_pais_por_nombre(nombre_buscar)
-
-    imprimir.lineas()
-
-    if pais_encontrado is not None:
-        print(f"{constantes.TEXTO_EXITO_GENERICO}¡País encontrado con éxito!")
-        imprimir.lineas()
-
-        # Mostramos la ficha del país
-        imprimir.pais(
-            nombre=pais_encontrado["nombre"],
-            continente=pais_encontrado["continente"],
-            poblacion=pais_encontrado["poblacion"],
-            superficie=pais_encontrado["superficie"],
-        )
-    else:
-        print(
-            f"{constantes.TEXTO_ERROR_GENERICO}El país '{nombre_buscar}' no se encuentra registrado."
-        )
-
-    imprimir.lineas()
-    imprimir.espacio()
-
-
+# DELETE
 def solicitar_eliminacion_pais():
     imprimir.espacio()
     imprimir.lineas()
@@ -245,10 +226,34 @@ def solicitar_eliminacion_pais():
             poblacion=pais_encontrado["poblacion"],
             superficie=pais_encontrado["superficie"],
         )
-        if pedir_opcion_booleana("Confirmar Cambios"):
+        if control_entradas.pedir_opcion_booleana("Confirmar Cambios"):
             funciones.eliminar_pais(nombre)
         else:
             print(f"Cambios no aplicados...")
 
     imprimir.lineas()
     imprimir.espacio()
+
+
+###CRUD
+
+
+def guardar_datos_a_txt(datos, estadisticas):
+    nombre = control_entradas.pedir_texto_no_vacio("Ingrese el nombre del archivo")
+    funciones.guardar_datos_a_txt(nombre, datos, estadisticas)
+
+
+def ordenar_datos_por_nombre(pila_datos, reverse):
+    funciones.ordenar_datos_por_nombre(pila_datos, reverse)
+
+
+def ordenar_datos_por_numero(pila_datos, columna_num, reverse):
+    funciones.ordenar_datos_por_numero(pila_datos, columna_num, reverse)
+
+
+def calcular_hash_datos(datos):
+    return funciones.calcular_hash_datos(datos)
+
+
+def generar_bloque_informe(datos):
+    return funciones.generar_bloque_informe(datos)

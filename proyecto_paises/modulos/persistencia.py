@@ -1,13 +1,18 @@
 import csv
+import os
+
 from pathlib import Path
-import constantes
-import imprimir
+
+from . import constantes
+from . import imprimir
 
 # Definimos las columnas exactamente como deberían estar en el CSV
 columnas = ["nombre", "poblacion", "superficie", "continente"]
+COLUMNAS_GLOBALES = ["nombre", "poblacion", "superficie", "continente"]
 
 # Construimos la ruta: un nivel atrás y dentro de 'data'
 RUTA = Path(__file__).parent.parent / "data" / "paises.csv"
+RUTA_REPORTES = Path(__file__).parent.parent / "reportes"
 
 
 def get_data_dict():
@@ -124,3 +129,76 @@ def eliminar_pais_por_nombre(nombre_eliminar):
             f"{constantes.TEXTO_ERROR_GENERICO}Error inesperado al escribir en el archivo: {error}\n"
         )
         return False
+
+
+def guardar_datos_a_txt(nombre_archivo, pila_datos):
+    # 1. Creamos la carpeta si no existe
+    RUTA_REPORTES.mkdir(parents=True, exist_ok=True)
+
+    # 2. Aseguramos la extensión .txt al nombre
+    if not nombre_archivo.endswith(".txt"):
+        nombre_archivo += ".txt"
+
+    # 3. Armamos la ruta final
+    ruta_completa = RUTA_REPORTES / nombre_archivo
+
+    # 4. Evaluamos si el archivo existe solo para el mensaje en consola
+    if ruta_completa.exists():
+        print(
+            f"🔄 El archivo '{ruta_completa.name}' ya existe. ¡Sobrescribiendo por completo!"
+        )
+    else:
+        print(f"✨ El archivo '{ruta_completa.name}' no existe. Creándolo...")
+
+    try:
+        # 5. Usamos modo 'w' siempre para reemplazar todo el contenido viejo
+        with open(ruta_completa, "w", encoding="utf-8") as archivo:
+            # Al ser un archivo nuevo/limpio, escribimos la cabecera siempre
+            archivo.write(",".join(COLUMNAS_GLOBALES) + "\n")
+
+            # Recorremos manteniendo el orden y protegiendo los datos en memoria
+            for item in pila_datos:
+                valores = [str(item.get(col, "")) for col in COLUMNAS_GLOBALES]
+                archivo.write(",".join(valores) + "\n")
+
+        print(
+            f"{constantes.TEXTO_EXITO_GENERICO}Archivo guardado con éxito en reportes"
+        )
+
+    except IOError as e:
+        print(f"{constantes.TEXTO_ERROR_GENERICO}al manejar el archivo: {e}")
+
+
+def guardar_estadisticas_a_txt(estadisticas, nombre_archivo):
+    if not nombre_archivo.endswith(".txt"):
+        nombre_archivo += ".txt"
+
+    ruta_completa = RUTA_REPORTES / nombre_archivo
+
+    # 1. LEER los países que guardó la línea anterior del menú
+    contenido_paises = ""
+    if ruta_completa.exists():
+        try:
+            with open(ruta_completa, "r", encoding="utf-8") as archivo_lectura:
+                contenido_paises = archivo_lectura.read()
+        except IOError as e:
+            print(f"{constantes.TEXTO_ERROR_GENERICO}al leer datos previos: {e}")
+            return
+
+    # 2. ESCRIBIR todo junto (Estadísticas ARRIBA + Países ABAJO)
+    try:
+        with open(ruta_completa, "w", encoding="utf-8") as archivo:
+            # Ponemos las estadísticas primero
+            archivo.write(estadisticas)
+
+            # Un salto de línea para separar el informe de los países
+            archivo.write("\n")
+
+            # Volvemos a pegar los países abajo
+            archivo.write(contenido_paises)
+
+        print(
+            f"{constantes.TEXTO_EXITO_GENERICO}Estadísticas añadidas con éxito al archivo"
+        )
+    except IOError as e:
+        print(f"{constantes.TEXTO_ERROR_GENERICO}al manejar el archivo: {e}")
